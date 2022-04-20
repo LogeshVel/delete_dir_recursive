@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/fs"
 	"io/ioutil"
@@ -8,16 +9,24 @@ import (
 	"path"
 )
 
+var verbose bool
+
 func main() {
-	args := os.Args[1:]
-	if len(args) != 2 {
-		fmt.Println("Please provide the path to find the dir and delete")
-		fmt.Println("usage : [path/to/find] [dir_name_to_delete]")
+
+	var flagGivenPath = flag.String("p", "", "path to find the dir and delete recursively")
+	var flagDirName = flag.String("d", "", "Dir name to find recursively in the given path and delete")
+	var flagVerbose = flag.Bool("v", false, "Prints the dir name in all dir while searching for the given dir")
+	flag.Parse()
+	givenPath := *flagGivenPath
+	dirName := *flagDirName
+	verbose = *flagVerbose
+	fmt.Printf("Given Path: %v\n", givenPath)
+	fmt.Printf("Given Dir Name to delete: %v\n", dirName)
+	if givenPath == "" || dirName == "" {
+		fmt.Println("Please provide the path and dir name to find and delete")
 		return
 	}
 
-	givenPath := args[0]
-	dirName := args[1]
 	fmt.Printf("Finding the dir : '%s' in the givenPath : '%s' recursively to proceed with deletion\n", dirName, givenPath)
 	// curntWorkingDir, _ := os.Getwd()
 	// fmt.Printf("curntWorkingDir: %v\n", curntWorkingDir)
@@ -46,7 +55,10 @@ func getDirFromGivenPath(findDirInPath string) ([]fs.FileInfo, []string, error) 
 }
 
 func findAndDeleteDirInGivenPath(searchPath string, dirListInGivenPath []fs.FileInfo, dirNameListInGivenPath []string, delDirName string) {
-	fmt.Printf("Directories in the given path(%q) : %q\n", searchPath, dirNameListInGivenPath)
+
+	if verbose {
+		fmt.Printf("Directories in the given path(%q) : %q\n", searchPath, dirNameListInGivenPath)
+	}
 
 	for _, cDir := range dirListInGivenPath {
 		if delDirName == cDir.Name() {
