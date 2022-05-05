@@ -1,6 +1,6 @@
-## Delete Dir recursively from the given path
+## Delete the Directory recursively from the given path
 
-To delete the particular Directory from the given path recursively.
+To delete the particular Directory from the given path recursively, by searching in all the directories hierarchy for the given directory from the given path.
 
   Ex:
     Consider the below folder structure in the given path.
@@ -52,3 +52,42 @@ go run main.go -p . -d dir1 -v
             or
 executable_bin -p . -d dir1 -v
 ```
+
+# Installation
+
+Download the zip file corresponding to your OS in the release page. As of now the **deldirrecur** app supports only for Linux and Windows.
+
+After downloading, extract the zip file using the below cmd
+
+```
+tar -zxvf filename.tar.gz
+```
+
+After unzipping execute the following cmd in the same dir where the files have been extracted.
+
+In Windows, open the command prompt with the administrative privilege (Run as Administrator)
+
+```
+move deldirrecur.exe "%ProgramFiles%"
+
+setx Path “%Path%;%ProgramFiles%”
+```
+
+For Windows after executing the above cmds, close the existing cmd prompt and open new one to use the **deldirrecur** app
+
+In Linux
+
+```
+sudo mv deldirrecur /usr/local/bin
+```
+
+## after installation
+
+We can use this app by the bin.
+
+Ex: To delete dir1 from the given path in all the hierarchy level.
+
+```
+deldirrecur -p . -d dir1 -v
+```
+
