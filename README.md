@@ -83,7 +83,7 @@ sudo mv deldirrecur /usr/local/bin
 
 ## after installation
 
-We can use this app by the bin.
+We can use this app by the downloaded bin.
 
 Ex: To delete dir1 from the given path in all the hierarchy level.
 
